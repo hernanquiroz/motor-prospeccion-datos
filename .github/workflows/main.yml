@@ -22,8 +22,8 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Ejecutar script
-        run: python nombre_de_tu_script.py
+      - name: Ejecutar app.py
+        run: python app.py
 
       - name: Subir leads.csv como artifact
         uses: actions/upload-artifact@v4
