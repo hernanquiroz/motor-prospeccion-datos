@@ -4,10 +4,14 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: '0 12 * * *'   # opcional: corre todos los días a las 12:00 UTC
 
 jobs:
   generar-leads:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout del repo
         uses: actions/checkout@v4
@@ -22,11 +26,11 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Ejecutar app.py
-        run: python app.py
+      - name: Ejecutar scraper
+        run: python scraper.py
 
       - name: Subir leads.csv como artifact
         uses: actions/upload-artifact@v4
         with:
           name: leads-csv
-          path: leads.csv
+          path: data/leads.csv
